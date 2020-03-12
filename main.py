@@ -6,7 +6,14 @@ from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 import cv2
 import glob
 
-def change_colors(img,width, color):
+def add_color_to_border(img, width, color):
+
+    '''
+    :param img: input image
+    :param width: width of the border
+    :param color: color in RGB color space [R,G,B]
+    :return:
+    '''
 
     a,b,c = img.shape
     x_min = 0
@@ -23,6 +30,15 @@ def change_colors(img,width, color):
     return img
 
 def visualize_scatter_with_images(X_2d_data, images, figsize=(45, 45), image_zoom=1):
+
+    '''
+    :param X_2d_data: input 2D coordinates
+    :param images: the images in the same order as their coordinates
+    :param figsize: size of matplotlib figure
+    :param image_zoom: size of the images in the plot
+    :return:
+    '''
+
     fig, ax = plt.subplots(figsize=figsize)
     artists = []
     for xy, i in zip(X_2d_data, images):
@@ -35,6 +51,11 @@ def visualize_scatter_with_images(X_2d_data, images, figsize=(45, 45), image_zoo
     plt.savefig('tsne.png')
 
 def load_data():
+
+    '''
+    This function loads the data for this specific task. 2D coordinates are made up and do not correspond to a t-SNE of a high-dimensional embeddings.
+    :return: tsne values, labels and images
+    '''
 
     root_path = 'imgs/'
     dirs = glob.glob(root_path + '*')
@@ -53,13 +74,12 @@ def load_data():
         for image in images:
             image = cv2.imread(image)
             image = cv2.resize(image, (224, 224))
-            image = change_colors(image, 5, color)
+            image = add_color_to_border(image, 5, color)
             imgs.append(image)
             labels.append(n_class)
         n_class += 1
 
     x_tsne = np.array([[-10, -8], [-9.5, -10], [-8, -8], [0, 0], [2, 0], [1, 4], [-10, 8], [-9, 8], [-8, 10]])
-
     return  x_tsne, labels, imgs
 
 if __name__ == '__main__':
