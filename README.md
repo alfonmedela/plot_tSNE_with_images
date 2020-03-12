@@ -1,5 +1,5 @@
 # t-SNE 2D plot with images
-This function plots images given (x_1,x_2) coordinates. It can be used to plot n-dimensional embeddings reduced to 2D with t-SNE for visualization pourposes.
+This function plots images given (x<sub>1</sub>,x_2) coordinates. It can be used to plot n-dimensional embeddings reduced to 2D with t-SNE for visualization pourposes.
 
 ## Example 
 
